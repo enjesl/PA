@@ -171,4 +171,4 @@ Open an issue or contact the maintainer for setup, debugging, or contributions.
 
 ## 📄 License
 
-MIT © [Nayanajith Premasinghe / ColumbiaAsia]
+MIT © [Nayanajith Premasinghe ]
