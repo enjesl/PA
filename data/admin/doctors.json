@@ -1,0 +1,35 @@
+{
+    "doctorsManagement": {
+        "pageTitle": "System Settings",
+        "systemSettingLabel": "Doctors",
+        "expectedDoctorsBreadcrumb": [
+            "System Settings",
+            "Doctors"
+        ],
+        "breadcrumbText": "System Settings",
+        "doctorsTableHeaders": [
+            "Name",
+            "Part of",
+            "Details",
+            "Last Update",
+            "Action"
+        ],
+        "enterIDValue": "ID value",
+        "enterNameValue": "Name value",
+        "optionLocation": "Bukit Jalil",
+        "optionOrganization": "COLUMBIA ASIA SDN.BHD.",
+        "optionSpecialty": "CARDIOLOGY",
+        "enterEmail": "test@columbiaasia.com",
+        "enterMobileno": "9999999999",
+        "selectLocationCount": 2,
+        "selectUserGroupCount":3,
+        "selectSpecialityCount":2,
+        "selectOrganizationCount":1,
+        "rowIndexForEdit": 1,
+        "isOrganizationDropdownSearchEnabled": true,
+        "isMultiSelectSearchEnabled": true,
+        "isLocationDropdownSearchEnabled": true,
+        "wait": 5000
+        
+    }
+}

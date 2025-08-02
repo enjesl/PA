@@ -1,0 +1,204 @@
+pr:
+  branches:
+    include:
+      - dev
+      - main
+
+pool:
+  vmImage: "windows-latest"
+
+# === Runtime Parameters ===
+parameters:
+  - name: TEST_ENV
+    displayName: "Test Environment"
+    type: string
+    default: "qa"
+
+  - name: IS_HEADLESS
+    displayName: "Headless Mode"
+    type: string
+    default: "true"
+
+  - name: AUTH_TYPE
+    displayName: "Authentication Type"
+    type: string
+    default: "microsoft"
+
+  - name: USER_ROLE
+    displayName: "User Role"
+    type: string
+    default: "admin"
+
+  - name: MICROSOFT_ADMIN_USERNAME
+    displayName: "MS Admin Username"
+    type: string
+    default: "mcr.pw2@columbiaasia.com"
+
+  - name: MICROSOFT_ADMIN_PASS
+    displayName: "MS Admin Password"
+    type: string
+    default: ""
+
+  - name: NONMICROSOFT_SUPPORT_USERNAME
+    displayName: "Non-MS Support Username"
+    type: string
+    default: "Superuser"
+
+  - name: NONMICROSOFT_SUPPORT_PASS
+    displayName: "Non-MS Support Password"
+    type: string
+    default: ""
+
+  - name: TEST_PATH
+    displayName: "Test File or Folder (e.g. tests/example.spec.ts)"
+    type: string
+    default: "default"
+
+  - name: TEST_NAME
+    displayName: "Test Case Name (e.g. 'Login')"
+    type: string
+    default: "default"
+
+# === Map Parameters to Variables ===
+variables:
+  TEST_ENV: ${{ parameters.TEST_ENV }}
+  IS_HEADLESS: ${{ parameters.IS_HEADLESS }}
+  AUTH_TYPE: ${{ parameters.AUTH_TYPE }}
+  USER_ROLE: ${{ parameters.USER_ROLE }}
+  MICROSOFT_ADMIN_USERNAME: ${{ parameters.MICROSOFT_ADMIN_USERNAME }}
+  MICROSOFT_ADMIN_PASS: ${{ parameters.MICROSOFT_ADMIN_PASS }}
+  NONMICROSOFT_SUPPORT_USERNAME: ${{ parameters.NONMICROSOFT_SUPPORT_USERNAME }}
+  NONMICROSOFT_SUPPORT_PASS: ${{ parameters.NONMICROSOFT_SUPPORT_PASS }}
+  TEST_PATH: ${{ parameters.TEST_PATH }}
+  TEST_NAME: ${{ parameters.TEST_NAME }}
+
+steps:
+  # 1. Checkout code
+  - checkout: self
+
+  # 2. Setup Node.js version
+  - task: UseNode@1
+    inputs:
+      version: "18.x"
+
+  # 3. Install dependencies and Playwright
+  - script: |
+      npm ci
+      npm install -D ts-node typescript allure-commandline
+      npx playwright install
+    displayName: "Install Dependencies & Playwright"
+
+  # 4. Execute Playwright Tests (conditionally)
+  - script: |
+      mkdir results || echo "results exists"
+      mkdir playwright-report || echo "playwright-report exists"
+      mkdir allure-results || echo "allure-results exists"
+
+      echo "Running test with:"
+      echo "  TEST_PATH: %TEST_PATH%"
+      echo "  TEST_NAME: %TEST_NAME%"
+
+      REM Default behavior: run all tests
+      if "%TEST_PATH%"=="default" (
+        echo "▶ Running all tests"
+        npx playwright test
+      ) else if "%TEST_NAME%"=="default" (
+        echo "▶ Running full suite: %TEST_PATH%"
+        npx playwright test %TEST_PATH%
+      ) else (
+        echo "▶ Running specific test: %TEST_PATH% -g %TEST_NAME%"
+        npx playwright test %TEST_PATH% -g "%TEST_NAME%"
+      )
+    displayName: "Execute Playwright Tests"
+    continueOnError: true
+    env:
+      TEST_ENV: $(TEST_ENV)
+      IS_HEADLESS: $(IS_HEADLESS)
+      AUTH_TYPE: $(AUTH_TYPE)
+      USER_ROLE: $(USER_ROLE)
+      MICROSOFT_ADMIN_USERNAME: $(MICROSOFT_ADMIN_USERNAME)
+      MICROSOFT_ADMIN_PASS: $(MICROSOFT_ADMIN_PASS)
+      NONMICROSOFT_SUPPORT_USERNAME: $(NONMICROSOFT_SUPPORT_USERNAME)
+      NONMICROSOFT_SUPPORT_PASS: $(NONMICROSOFT_SUPPORT_PASS)
+      TEST_PATH: $(TEST_PATH)
+      TEST_NAME: $(TEST_NAME)
+
+  # 5. Generate Allure Reports via TypeScript helper
+  - script: |
+      echo "Generating Allure reports..."
+      npx ts-node helper/generateAllureReports.ts
+    displayName: "Generate Allure Reports via TS Helper"
+    condition: always()
+
+  # 6. Publish test results to Azure DevOps
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: "results/test-results.xml"
+      testRunTitle: "Playwright Test Results"
+      failTaskOnFailedTests: false
+
+  # 7. Zip Playwright HTML report
+  - script: |
+      if exist playwright-report (
+        powershell Compress-Archive -Path playwright-report\* -DestinationPath playwright-report.zip
+      ) else (
+        echo "playwright-report folder not found"
+      )
+    displayName: "Zip Playwright HTML Report"
+    condition: always()
+
+  # 8. Zip Allure Multi-file Report
+  - script: |
+      if exist allure-report (
+        powershell Compress-Archive -Path allure-report\* -DestinationPath allure-report.zip
+      ) else (
+        echo "allure-report folder not found"
+      )
+    displayName: "Zip Allure Multi-file Report"
+    condition: always()
+
+  # 9. Zip Allure Single HTML Report
+  - script: |
+      if exist allure-single-report (
+        powershell Compress-Archive -Path allure-single-report\* -DestinationPath allure-single-report.zip
+      ) else (
+        echo "allure-single-report folder missing. Cannot zip."
+        exit /b 1
+      )
+    displayName: "Zip Allure Single HTML Report"
+    condition: always()
+
+  # 10. Publish Playwright Report Artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: "playwright-report.zip"
+      artifactName: "PlaywrightReport"
+      publishLocation: "Container"
+    displayName: "Publish Playwright HTML Report"
+    condition: always()
+
+  # 11. Publish Allure Multi-file Report Artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: "allure-report.zip"
+      artifactName: "AllureReport"
+      publishLocation: "Container"
+    displayName: "Publish Allure Multi-file Report"
+    condition: always()
+
+  # 12. Publish Allure Single HTML Report Artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: "allure-single-report.zip"
+      artifactName: "AllureSingleReport"
+      publishLocation: "Container"
+    displayName: "Publish Allure Single HTML Report"
+    condition: always()
+
+  # 13. Publish Allure Tab Report (optional if extension is installed)
+  - task: PublishAllureReport@1
+    inputs:
+      reportDir: "$(System.DefaultWorkingDirectory)/allure-report"
+    displayName: "Publish Allure Report"
+    condition: always()

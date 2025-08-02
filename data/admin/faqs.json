@@ -1,0 +1,23 @@
+{
+    "faqManagement": {
+        "pageTitle": "System Settings",
+        "systemSettingLabel": "FAQ",
+        "expectedFaqsBreadcrumb": [
+            "System Settings",
+            "FAQs"
+        ],
+        "breadcrumbText": "System Settings",
+        "faqTableHeaders": [
+            "Platforms",
+            "User",
+            "Header",
+            "Last Update",
+            "Status",
+            "Action"
+        ],
+        "optionPlatformValue": "Patient App",
+        "optionUserGroupValue": "Admin Group",
+        "headerValue": "Test Header",
+        "optionStatusValue": "Active"
+    }
+}

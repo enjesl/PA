@@ -1,0 +1,22 @@
+{
+    "microsoft": {
+        "admin": {
+            "userName": "test@test.com",
+            "password": "CGzatPje@cF*VtRs3XM3"
+        },
+        "doctor": {
+            "userName": "test@test.com",
+            "password": "Doctor123"
+        }
+    },
+    "nonMicrosoft": {
+        "admin": {
+            "userName": "Superuser",
+            "password": "12334"
+        },
+        "support": {
+            "userName": "support@yourdomain.com",
+            "password": "Support456"
+        }
+    }
+}

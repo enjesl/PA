@@ -1,0 +1,14 @@
+{
+    "content": {
+        "contentText": "Content",
+        "waitTime": 2000,
+        "moduleDropdownText": "Select Module",
+        "platformDropdownText": "Select Platforms",
+        "moduleFloatingLabel": "Module",
+        "platformFloatingLabel": "Platforms",
+        "arrowDropdown": "arrow_drop_down",
+        "firstRowContentTableIndex": 2,
+        "secondRowContentTableIndex": 3,
+        "randomModuleOrPlatformSelection": true
+    }
+}

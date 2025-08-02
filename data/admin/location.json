@@ -1,0 +1,39 @@
+{
+    "locationManagement": {
+        "pageTitle": "System Settings",
+        "systemSettingLabel": "Locations",
+        "expectedLocationBreadcrumb": [
+            "System Settings",
+            "Locations"
+        ],
+        "breadcrumbText": "System Settings",
+        "locationTableHeaders": [
+            "Id",
+            "Location Name",
+            "Contact",
+            "Last Update",
+            "Status",
+            "Action"
+        ],
+        "enterLocation": "Kuala Lumpur",
+        "enterID":"4G3H3K323W",
+        "partOfCreate":"Wilayah persekutuan kuala lumpur",
+        "selectOrganizationCreate":"COLUMBIA ASIA SDN.BHD.",
+        "isStatusActive": "Active",
+        "locationNameCreate": "Bukit Jalil",
+        "enterContactNumber": "9999999999",
+        "enterWebsite":"test@columbiaasia.com",
+        "addessLine1":"7th Floor, Wisma Consplant 1",
+        "addessLine2":"Jalan SS16/4, Ss 16",
+        "enterpostcode":"47500",
+        "floorindexnumber": "0", 
+        "hospital": "columbia asia",
+        "rowIndexForEdit": 1,
+        "country":"Malaysia",
+        "state": "Wilayah persekutuan kuala lumpur",
+        "city":"Cheras",
+        "floor":"LEVEL 1",
+        "imagePath": "uploads/image.png",
+        "wait": 6000
+    }
+}

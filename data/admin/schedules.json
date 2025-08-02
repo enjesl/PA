@@ -1,0 +1,99 @@
+{
+    "scheduleFilterPanel": {
+        "testCaseName": "Verify Filter Panel Headers and Expand Behavior",
+        "systemSettingLabel": "Schedule",
+        "pageTitle": "System Settings",
+        "expectedBreadcrumb": [
+            "System Settings",
+            "Schedules"
+        ],
+        "breadcrumbText": "Schedules",
+        "filterSectionHeaders": [
+            "Schedule Details",
+            "Participants",
+            "Date",
+            "Status"
+        ],
+        "customFilterSections": "Date, Status",
+        "hospitalOptionValue": "All Hospitals",
+        "wait": 3000
+    },
+    "createSchedule": {
+        "handleFilterSections": {
+            "allSectionHeaders": [
+                "Participants"
+            ],
+            "expandMode": "custom",
+            "action": "both",
+            "sectionsToExpand": "Participants"
+        },
+        "doctorServiceLocationDropdowns": {
+            "action": "both",
+            "doctorValue": "",
+            "serviceValue": "",
+            "locationValue": "",
+            "randomSelection": true,
+            "restrictDoctorValues": [],
+            "restrictServiceValues": [],
+            "restrictLocationValues": [],
+            "pauseDuration": 300
+        },
+        "scheduleTimezoneAndSlotDropdowns": {
+            "action": "both",
+            "timezoneValue": "Asia/Kuala_Lumpur",
+            "slotDurationValue": "10 Mins",
+            "pause": 300
+        },
+        "scheduleStartAndEndDates": {
+            "startType": "today",
+            "startOffsetDays": 0,
+            "endOffsetDays": 1,
+            "optionAvailability": "",
+            "isRandom": true,
+            "excludeDays": "",
+            "pauseDuration": 300
+        },
+        "scheduleBookableAndRequestableDropdowns": {
+            "action": "both",
+            "bookableForValues": [],
+            "requestableForValues": [],
+            "useRandom": true,
+            "numberToSelect": 1,
+            "pauseDuration": 300
+        },
+        "occurrenceAndTimeSlot": {
+            "occurrenceValues": ["First","Second"],
+            "useRandom": false,
+            "numberToSelect": 1,
+            "excludeValues": [],
+            "startTime": "09:00",
+            "startPeriod": "AM",
+            "endTime": "05:00",
+            "endPeriod": "PM",
+            "pauseDuration": 300
+        },
+        "breakConfiguration": {
+            "breakTitle": "Lunch Break",
+            "breakStartTime": "01:00",
+            "breakStartPeriod": "PM",
+            "breakEndTime": "02:00",
+            "breakEndPeriod": "PM",
+            "pauseDuration": 300
+        },
+        "verifyScheduleRowData": {
+            "rowIndex": 1,
+            "occurrences": [
+                "First",
+                "Second"
+            ],
+            "startTime": "09:00",
+            "endTime": "05:00",
+            "breakTitle": "Lunch Break",
+            "breakStartTime": "01:00",
+            "breakEndTime": "02:00",
+            "pauseDuration": 300
+        },
+        "instructions": "This schedule is created for routine consultations.",
+        "expectedToasterMessage": "Schedule created successfully!"
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "adminLanding": {
+        "pageTitle": "System Settings",
+        "footerText": "Copyright ©  2025. All rights reserved. Columbia Asia Hospital"
+    },
+    "userGroup": {
+        "systemSettingLabel": "User Groups",
+        "expectedUserGroupBreadcrumb": [
+            "System Settings",
+            "User Groups"
+        ],
+        "expectedUserGroupCreateBreadcrumb": [
+            "System Settings",
+            "User Groups",
+            "Create User Group"
+        ],
+        "expectedUserGroupEditBreadcrumb": [
+            "System Settings",
+            "User Groups",
+            "Edit User Group"
+        ],
+        "pageTitle": "System Settings"
+    },
+    "faqManagement": {
+        "pageTitle": "System Settings",
+        "systemSettingLabel": "FAQ",
+        "expectedFaqsBreadcrumb": [
+            "System Settings",
+            "FAQs"
+        ],
+        "breadcrumbText": "System Settings",
+        "faqTableHeaders": [
+            "Platforms",
+            "User",
+            "Header",
+            "Last Update",
+            "Status",
+            "Action"
+        ],
+        "optionPlatformValue": "Patient App",
+        "optionUserGroupValue": "Admin Group",
+        "headerValue": "Test Header",
+        "optionStatusValue": "Active"
+    }
+}

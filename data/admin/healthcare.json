@@ -1,0 +1,19 @@
+{
+    "healthcare": {
+        "healthcareServicesText": "Healthcare Services",
+        "waitTime": 2000,
+        "specialtyDropdownText": "Select Specialty",
+        "locationDropdownText": "Select Location",
+        "statusDropdownText": "Select Status",
+        "secondRowHealthcareServicesTableIndex": 3,
+        "firstRowHealthcareServicesTableIndex": 2,
+        "locationText": "Location ",
+        "locationValue": "KLAN",
+        "statusActive": "Active",
+        "statusInActive": "Inactive",
+        "toastMessage": "Healthcare Services status updated successfully.",
+        "locationOptionToSelectTwo": 2,
+        "randomLocationSelectionTrue": true
+        
+    }
+}

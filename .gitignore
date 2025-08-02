@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Test result directories
+test-results/
+allure-results/
+allure-report/
+allure-single-report/
+junit-reports/
+playwright-report/
+results/
+
+# Authentication files (if needed — make sure you mean to ignore /auth/)
+auth/
+
+# Tool directories
+.scannerwork/
+.vscode/
+
+# Lock file (optional — usually **not** ignored for teams)
+# Uncomment only if you intentionally want to ignore it
+# package-lock.json
